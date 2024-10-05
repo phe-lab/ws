@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 )
 
-const DEFAULT_WORKSPACE_DIR = ".code-workspaces"
+const DEFAULT_WORKSPACE_DIR = "code-workspaces"
 
 type Config struct {
 	Debug         bool

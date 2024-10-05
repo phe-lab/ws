@@ -47,12 +47,12 @@ func ChooseWorkspace(path string) (string, error) {
 
 	workspaces, err := utils.FindWorkspaceFiles(path)
 	if err != nil {
-		return selectedFile, err
+		return "", err
 	}
 
 	if len(workspaces) == 0 {
 		logger.Info().Str("workspacePath", path).Msg("The workspace directory is currently empty")
-		return selectedFile, nil
+		return "", nil
 	}
 
 	form := huh.NewForm(
@@ -65,9 +65,10 @@ func ChooseWorkspace(path string) (string, error) {
 	)
 
 	if err = form.Run(); err != nil {
-		if err != huh.ErrUserAborted {
-			return selectedFile, err
+		if err == huh.ErrUserAborted {
+			return "", nil
 		}
+		return "", err
 	}
 
 	return selectedFile, nil

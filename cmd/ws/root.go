@@ -3,6 +3,7 @@ package ws
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"vscode-workspace-cli/internal/config"
 	"vscode-workspace-cli/internal/exception"
 	"vscode-workspace-cli/internal/form"
@@ -17,7 +18,7 @@ var debug bool
 
 var rootCmd = &cobra.Command{
 	Use:     "ws",
-	Version: "0.1.0",
+	Version: "0.2.0",
 	Short:   "A simple CLI tool to quickly open VSCode Workspace",
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg := config.LoadConfig(debug)
@@ -45,7 +46,12 @@ var rootCmd = &cobra.Command{
 
 		if workspace != "" {
 			logger.Debug().Str("file", workspace).Msg("Selected workspace")
-			logger.Debug().Str("file", workspace).Msg("Opening workspace")
+			logger.Info().Str("file", workspace).Msg("Opening workspace")
+			cmd := exec.Command("code", workspace)
+			if err := cmd.Run(); err != nil {
+				logger.Error().Msg(err.Error())
+				os.Exit(1)
+			}
 		}
 	},
 }
