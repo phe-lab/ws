@@ -1,2 +1,3 @@
 .vscode
-/bin/ws
+dist/
+vscode-workspace-cli

@@ -17,9 +17,8 @@ import (
 var debug bool
 
 var rootCmd = &cobra.Command{
-	Use:     "ws",
-	Version: "0.2.0",
-	Short:   "A simple CLI tool to quickly open VSCode Workspace",
+	Use:   "ws",
+	Short: "A simple CLI tool to quickly open VSCode Workspace",
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg := config.LoadConfig(debug)
 		logger := log.InitLogger(debug)
@@ -54,6 +53,10 @@ var rootCmd = &cobra.Command{
 			}
 		}
 	},
+}
+
+func SetVersionInfo(version, commit, date string) {
+	rootCmd.Version = fmt.Sprintf("%s (Built on %s from Git SHA %s)", version, date, commit)
 }
 
 func ensureWorkspaceDir(path string) error {
