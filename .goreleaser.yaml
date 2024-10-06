@@ -25,8 +25,6 @@ builds:
       - linux
       - windows
       - darwin
-    ldflags:
-      - -s -w -X "main.goVersion={{.Env.GOVERSION}}"
     binary: ws
     mod_timestamp: "{{ .CommitTimestamp }}"
 
