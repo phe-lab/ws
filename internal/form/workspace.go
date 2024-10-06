@@ -2,44 +2,11 @@ package form
 
 import (
 	"path/filepath"
-	"strings"
 	"vscode-workspace-cli/internal/log"
 	"vscode-workspace-cli/internal/utils"
 
 	"github.com/charmbracelet/huh"
 )
-
-func shortenPath(path string) string {
-	path = filepath.ToSlash(path)
-	parts := strings.Split(path, "/")
-
-	// shorten name of parrent directories:
-	for i := 0; i < len(parts)-2; i++ {
-		if parts[i] != "" {
-			parts[i] = string(parts[i][0])
-		}
-	}
-
-	// remove file extension .code-workspace:
-	lastPart := parts[len(parts)-1]
-	parts[len(parts)-1] = strings.TrimSuffix(lastPart, ".code-workspace")
-
-	return strings.Join(parts, "/")
-}
-
-func convertToOptions(workspaces []string, path string) []huh.Option[string] {
-	options := make([]huh.Option[string], len(workspaces))
-
-	for i, workspace := range workspaces {
-		relativePath, err := filepath.Rel(path, workspace)
-		if err != nil {
-			relativePath = workspace
-		}
-		options[i] = huh.NewOption("./"+shortenPath(relativePath), workspace)
-	}
-
-	return options
-}
 
 func ChooseWorkspace(path string) (string, error) {
 	var selectedFile string
@@ -55,21 +22,34 @@ func ChooseWorkspace(path string) (string, error) {
 		return "", nil
 	}
 
-	form := huh.NewForm(
+	err = huh.NewForm(
 		huh.NewGroup(
 			huh.NewSelect[string]().
-				Title("Choose a workspace to open: ").
+				Title(" ").
+				Description("Select a workspace to open:").
+				Filtering(true).
 				Options(convertToOptions(workspaces, path)...).
 				Value(&selectedFile),
 		),
-	)
+	).WithTheme(t).Run()
 
-	if err = form.Run(); err != nil {
-		if err == huh.ErrUserAborted {
-			return "", nil
-		}
+	if err != nil {
 		return "", err
 	}
 
 	return selectedFile, nil
+}
+
+func convertToOptions(workspaces []string, path string) []huh.Option[string] {
+	options := make([]huh.Option[string], len(workspaces))
+
+	for i, workspace := range workspaces {
+		relativePath, err := filepath.Rel(path, workspace)
+		if err != nil {
+			relativePath = workspace
+		}
+		options[i] = huh.NewOption("./"+utils.ShortenPath(relativePath), workspace)
+	}
+
+	return options
 }

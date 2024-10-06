@@ -14,7 +14,7 @@ func ConfirmCreateDirectory(path string) (bool, error) {
 				Description(path).
 				Value(&allowCreate),
 		),
-	).Run()
+	).WithTheme(t).Run()
 
 	return allowCreate, err
 }
