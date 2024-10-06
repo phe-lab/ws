@@ -25,9 +25,8 @@ var rootCmd = &cobra.Command{
 		workspaceDir := cfg.GetWorkspacePath()
 
 		if err := ensureWorkspaceDir(workspaceDir); err != nil {
+			logger.Error().Msg(err.Error())
 			if err != exception.ErrUserAborted {
-				logger.Error().Msg(err.Error())
-				logger.Debug().Msg("application stopped")
 				os.Exit(1)
 			}
 			return
@@ -38,7 +37,7 @@ var rootCmd = &cobra.Command{
 		logger.Debug().Str("workspacePath", workspaceDir).Msg("")
 
 		workspace, err := form.ChooseWorkspace(workspaceDir)
-		if err != nil {
+		if err != nil && err != huh.ErrUserAborted {
 			logger.Error().Msg(err.Error())
 			os.Exit(1)
 		}
@@ -62,9 +61,9 @@ func SetVersionInfo(version, commit, date string) {
 func ensureWorkspaceDir(path string) error {
 	if err := utils.ValidateWorkspacePath(path); err != nil {
 		if err == exception.ErrNotExist {
-			yes, err := form.ConfirmCreateDirectory(path)
-			if err != nil || !yes {
-				if err == huh.ErrUserAborted || !yes {
+			confirm, err := form.ConfirmCreateDirectory(path)
+			if err != nil || !confirm {
+				if err == huh.ErrUserAborted || !confirm {
 					return exception.ErrUserAborted
 				}
 				return err

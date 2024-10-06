@@ -3,6 +3,7 @@ package config
 import (
 	"os/user"
 	"path/filepath"
+	"vscode-workspace-cli/internal/utils"
 )
 
 const DEFAULT_WORKSPACE_DIR = "code-workspaces"
@@ -22,9 +23,11 @@ func DefaultWorkspacePath() string {
 }
 
 func (c *Config) GetWorkspacePath() string {
-	if c.WorkspacePath != "" {
-		return c.WorkspacePath
+	if c.WorkspacePath == "" {
+		return DefaultWorkspacePath()
 	}
 
-	return DefaultWorkspacePath()
+	path, _ := utils.NormalizePath(c.WorkspacePath)
+
+	return path
 }
