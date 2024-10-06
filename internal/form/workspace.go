@@ -25,8 +25,7 @@ func ChooseWorkspace(path string) (string, error) {
 	err = huh.NewForm(
 		huh.NewGroup(
 			huh.NewSelect[string]().
-				Title(" ").
-				Description("Select a workspace to open:").
+				Title("Select a workspace to open: ").
 				Filtering(true).
 				Options(convertToOptions(workspaces, path)...).
 				Value(&selectedFile),
@@ -48,7 +47,7 @@ func convertToOptions(workspaces []string, path string) []huh.Option[string] {
 		if err != nil {
 			relativePath = workspace
 		}
-		options[i] = huh.NewOption("./"+utils.ShortenPath(relativePath), workspace)
+		options[i] = huh.NewOption(utils.ShortenPath(relativePath), workspace)
 	}
 
 	return options
