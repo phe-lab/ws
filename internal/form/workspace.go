@@ -17,7 +17,7 @@ func ChooseWorkspace(path string) (string, error) {
 	}
 
 	if len(workspaces) == 0 {
-		log.Logger.Info().Str("workspacePath", path).Msg("The workspace directory is currently empty")
+		log.Logger.Info().Str("workspacePath", path).Msg("No workspace files found")
 		return "", nil
 	}
 
