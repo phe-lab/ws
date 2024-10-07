@@ -10,7 +10,7 @@ import (
 
 var (
 	once   sync.Once
-	logger *zerolog.Logger
+	Logger *zerolog.Logger
 )
 
 func InitLogger(debug bool) *zerolog.Logger {
@@ -25,12 +25,8 @@ func InitLogger(debug bool) *zerolog.Logger {
 			zerolog.SetGlobalLevel(zerolog.InfoLevel)
 		}
 
-		logger = &log.Logger
+		Logger = &log.Logger
 	})
 
-	return logger
-}
-
-func GetLogger() *zerolog.Logger {
-	return logger
+	return Logger
 }

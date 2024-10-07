@@ -3,7 +3,6 @@ package ws
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"vscode-workspace-cli/internal/config"
 	"vscode-workspace-cli/internal/exception"
 	"vscode-workspace-cli/internal/form"
@@ -43,13 +42,8 @@ var rootCmd = &cobra.Command{
 		}
 
 		if workspace != "" {
-			logger.Debug().Str("file", workspace).Msg("Selected workspace")
-			logger.Info().Str("file", workspace).Msg("Opening workspace")
-			cmd := exec.Command("code", workspace)
-			if err := cmd.Run(); err != nil {
-				logger.Error().Msg(err.Error())
-				os.Exit(1)
-			}
+			log.Logger.Debug().Str("file", workspace).Msg("Selected workspace")
+			utils.OpenWorkspace(workspace)
 		}
 	},
 }

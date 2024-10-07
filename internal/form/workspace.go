@@ -10,7 +10,6 @@ import (
 
 func ChooseWorkspace(path string) (string, error) {
 	var selectedFile string
-	var logger = log.GetLogger()
 
 	workspaces, err := utils.FindWorkspaceFiles(path)
 	if err != nil {
@@ -18,7 +17,7 @@ func ChooseWorkspace(path string) (string, error) {
 	}
 
 	if len(workspaces) == 0 {
-		logger.Info().Str("workspacePath", path).Msg("The workspace directory is currently empty")
+		log.Logger.Info().Str("workspacePath", path).Msg("The workspace directory is currently empty")
 		return "", nil
 	}
 
