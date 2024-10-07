@@ -3,4 +3,13 @@
   "extends": [
     "config:recommended"
   ]
+  "packageRules": [
+    {
+      "groupName": "all non-major dependencies",
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupSlug": "all-minor-patch"
+    }
+  ],
+  "automergeType": "branch",
+  "platformAutomerge": true
 }
