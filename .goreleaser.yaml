@@ -10,10 +10,7 @@ version: 2
 
 before:
   hooks:
-    # You may remove this if you don't use go modules.
-    - go mod tidy
-    # you may remove this if you don't need go generate
-    - go generate ./...
+    - go mod download
 
 snapshot:
   version_template: "{{ incpatch .Version }}"
@@ -46,20 +43,11 @@ archives:
       group: root
       owner: root
       mtime: "{{ .CommitDate }}"
-    files:
-      - src: README.md
-        info:
-          owner: root
-          group: root
-          mtime: "{{ .CommitDate }}"
-      - src: LICENSE
-        info:
-          owner: root
-          group: root
-          mtime: "{{ .CommitDate }}"
+    files: ["LICENSE"]
 
 checksum:
   name_template: "checksums.txt"
+  algorithm: sha256
 
 changelog:
   sort: asc
