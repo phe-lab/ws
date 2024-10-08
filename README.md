@@ -2,8 +2,6 @@
 
 A simple CLI tool to quickly open VSCode workspaces.
 
-https://github.com/user-attachments/assets/f4ce5609-51c8-4340-a0de-87d06491091f
-
 ## Installation
 
 Using [Homebrew](https://brew.sh):
@@ -27,6 +25,8 @@ ws
 # Open the workspace with the filename "simple-scrollspy.code-workspace"
 ws simple-scrollspy
 
-# Set the logging level to "debug"
+# Execute CLI with the logging level set to "debug"
 ws --debug
 ```
+
+https://github.com/user-attachments/assets/f4ce5609-51c8-4340-a0de-87d06491091f
