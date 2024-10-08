@@ -25,6 +25,19 @@ builds:
     binary: ws
     mod_timestamp: "{{ .CommitTimestamp }}"
 
+brews:
+  - repository:
+      owner: phe-lab
+      name: homebrew-tap
+    name: ws
+    homepage: "https://github.com/phe-lab/ws"
+    description: "A simple CLI tool to quickly open VSCode Workspace"
+    directory: Formula
+    install: |
+      bin.install "ws"
+    test: |
+      assert_match /A simple CLI tool to quickly open VSCode Workspace/, shell_output("#{bin}/ws --help", 0)
+
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of `uname`.
