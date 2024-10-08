@@ -1,7 +1,7 @@
 package main
 
 import (
-	"vscode-workspace-cli/cmd/ws"
+	"github.com/phe-lab/ws/cmd/ws"
 )
 
 var (

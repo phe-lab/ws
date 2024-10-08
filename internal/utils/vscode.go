@@ -3,7 +3,8 @@ package utils
 import (
 	"os"
 	"os/exec"
-	"vscode-workspace-cli/internal/log"
+
+	"github.com/phe-lab/ws/internal/log"
 )
 
 func OpenWorkspace(workspace string) {

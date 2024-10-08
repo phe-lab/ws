@@ -3,7 +3,8 @@ package config
 import (
 	"os/user"
 	"path/filepath"
-	"vscode-workspace-cli/internal/utils"
+
+	"github.com/phe-lab/ws/internal/utils"
 )
 
 const DEFAULT_WORKSPACE_DIR = "code-workspaces"

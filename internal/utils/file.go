@@ -6,7 +6,8 @@ import (
 	"os/user"
 	"path/filepath"
 	"strings"
-	"vscode-workspace-cli/internal/exception"
+
+	"github.com/phe-lab/ws/internal/exception"
 )
 
 func FindWorkspaceFiles(directory string, basename string) ([]string, error) {

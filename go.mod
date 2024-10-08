@@ -1,4 +1,4 @@
-module vscode-workspace-cli
+module github.com/phe-lab/ws
 
 go 1.23.1
 

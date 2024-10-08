@@ -2,8 +2,9 @@ package form
 
 import (
 	"path/filepath"
-	"vscode-workspace-cli/internal/log"
-	"vscode-workspace-cli/internal/utils"
+
+	"github.com/phe-lab/ws/internal/log"
+	"github.com/phe-lab/ws/internal/utils"
 
 	"github.com/charmbracelet/huh"
 )

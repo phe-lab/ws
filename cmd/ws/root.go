@@ -3,11 +3,12 @@ package ws
 import (
 	"fmt"
 	"os"
-	"vscode-workspace-cli/internal/config"
-	"vscode-workspace-cli/internal/exception"
-	"vscode-workspace-cli/internal/form"
-	"vscode-workspace-cli/internal/log"
-	"vscode-workspace-cli/internal/utils"
+
+	"github.com/phe-lab/ws/internal/config"
+	"github.com/phe-lab/ws/internal/exception"
+	"github.com/phe-lab/ws/internal/form"
+	"github.com/phe-lab/ws/internal/log"
+	"github.com/phe-lab/ws/internal/utils"
 
 	"github.com/charmbracelet/huh"
 	"github.com/spf13/cobra"
