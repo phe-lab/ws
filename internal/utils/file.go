@@ -9,7 +9,7 @@ import (
 	"vscode-workspace-cli/internal/exception"
 )
 
-func FindWorkspaceFiles(directory string) ([]string, error) {
+func FindWorkspaceFiles(directory string, basename string) ([]string, error) {
 	var workspaces []string
 
 	err := filepath.WalkDir(directory, func(path string, d fs.DirEntry, err error) error {
@@ -18,7 +18,9 @@ func FindWorkspaceFiles(directory string) ([]string, error) {
 		}
 
 		if !d.IsDir() && filepath.Ext(path) == ".code-workspace" {
-			workspaces = append(workspaces, path)
+			if basename == "" || (basename != "" && filepath.Base(path) == basename) {
+				workspaces = append(workspaces, path)
+			}
 		}
 
 		return nil

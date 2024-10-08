@@ -20,7 +20,6 @@ func InitLogger(debug bool) *zerolog.Logger {
 
 		if debug {
 			zerolog.SetGlobalLevel(zerolog.DebugLevel)
-			// log.Logger = log.Logger.With().Caller().Logger()
 		} else {
 			zerolog.SetGlobalLevel(zerolog.InfoLevel)
 		}
