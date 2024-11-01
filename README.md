@@ -30,3 +30,12 @@ ws simple-scrollspy
 # Execute CLI with the logging level set to "debug"
 ws --debug
 ```
+
+## Configuration
+
+### Environment Variables
+
+| Name              | Default             | Description                                                |
+| ----------------- | ------------------- | ---------------------------------------------------------- |
+| `VSCODE_WS_PATH`  | `~/code-workspaces` | The directory path containing the `*.code-workspace` files |
+| `VSCODE_WS_DEBUG` |                     | Enable the debug mode: `VSCODE_WS_DEBUG=true`              |
