@@ -15,30 +15,32 @@ import (
 )
 
 var debug bool
-var customUsage string = `Usage:
-  {{.UseLine}}
 
-Arguments:
-  [filename]  Optional filename to be opened
+var rootCmd = &cobra.Command{
+	Use:   "ws [filename]",
+	Short: "A simple CLI tool to quickly open VSCode Workspace",
+	Long: `
+██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗  █████╗  ██████╗███████╗     ██████╗██╗     ██╗
+██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝    ██╔════╝██║     ██║
+██║ █╗ ██║██║   ██║██████╔╝█████╔╝ ███████╗██████╔╝███████║██║     █████╗      ██║     ██║     ██║
+██║███╗██║██║   ██║██╔══██╗██╔═██╗ ╚════██║██╔═══╝ ██╔══██║██║     ██╔══╝      ██║     ██║     ██║
+╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗███████║██║     ██║  ██║╚██████╗███████╗    ╚██████╗███████╗██║
+ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝     ╚═════╝╚══════╝╚═╝
 
-Flags:
-{{.Flags.FlagUsages | trimTrailingWhitespaces}}
+A simple CLI tool to quickly open VSCode Workspace.
 
-Examples:
-  # List the workspaces
+Environment Variables:
+  - VSCODE_WS_PATH: The directory path containing the "*.code-workspace" files. Default: ~/code-workspaces
+  - VSCODE_WS_DEBUG: Enable the debug mode. Example: VSCODE_WS_DEBUG=true`,
+	Example: `  # List the workspaces
   ws
 
   # Open the workspace with the filename "simple-scrollspy.code-workspace"
   ws simple-scrollspy
 
   # Set the logging level to "debug"
-  ws --debug
-`
-
-var rootCmd = &cobra.Command{
-	Use:   "ws [filename]",
-	Short: "A simple CLI tool to quickly open VSCode Workspace",
-	Args:  cobra.MaximumNArgs(1),
+  ws --debug`,
+	Args: cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg := config.LoadConfig(debug)
 		logger := log.InitLogger(debug)
@@ -77,7 +79,6 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debug mode")
-	rootCmd.SetUsageTemplate(customUsage)
 }
 
 func SetVersionInfo(version, commit, date string) {
@@ -88,6 +89,10 @@ func ensureWorkspaceDir(path string) error {
 	log.Logger.Debug().Msg("Validate workspace path")
 	if err := utils.ValidateWorkspacePath(path); err != nil {
 		if err == exception.ErrNotExist {
+			log.Logger.Warn().
+				Str("default", "~/code-workspaces").
+				Msg("Declare environment variable `VSCODE_WS_PATH=~/your/path` to change the workspace directory")
+
 			confirm, err := form.ConfirmCreateDirectory(path)
 			if err != nil || !confirm {
 				if err == huh.ErrUserAborted || !confirm {
