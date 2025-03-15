@@ -9,13 +9,13 @@ A simple CLI tool to quickly open VSCode Workspace.
 Using [Homebrew](https://brew.sh):
 
 ```bash
-brew install phe-lab/tap/ws
+brew install teguru-labs/tap/ws
 ```
 
 If you have a Go environment:
 
 ```bash
-go get -u -v github.com/phe-lab/ws
+go get -u -v github.com/teguru-labs/ws
 ```
 
 ## Usage
