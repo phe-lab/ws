@@ -27,10 +27,10 @@ builds:
 
 brews:
   - repository:
-      owner: phe-lab
+      owner: teguru-labs
       name: homebrew-tap
     name: ws
-    homepage: "https://github.com/phe-lab/ws"
+    homepage: "https://github.com/teguru-labs/ws"
     description: "A simple CLI tool to quickly open VSCode Workspace"
     directory: Formula
     install: |
